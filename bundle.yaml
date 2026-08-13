@@ -5,26 +5,37 @@ license: "MIT"
 orchestrator: "suite-orchestrator"
 portable_core: true
 
-# Combined from 5 source repos:
-# - agent-skills-library     (agent-skills, mattpocock-skills, plugins, cli-tools, mcp-servers)
-# - agent-skill-suite        (suite-core skills, adapters, schemas)
-# - engineering-standards    (engineering quality gates, integrations)
-# - design-skill-pack        (design system skills, docs)
-# - project-bootstrap-full   (project bootstrap skill, reference templates)
+# =============================================================================
+# Agent Skill Framework — Combined from 5 GitHub source repos + 5 own skills
+#
+# Sources:
+# 1. projectamazonph/agent-skills-library   (46 skills: agent-skills + mattpocock-skills)
+# 2. projectamazonph/agent-skill-suite        (11 skills: suite-core)
+# 3. projectamazonph/engineering-standards    (6 skills + 1 specialist)
+# 4. projectamazonph/design-skill-pack        (2 design skills)
+# 5. projectamazonph/project-bootstrap-full   (1 bootstrap skill)
+# 6. skills-lock.json (user's personal curated set) (5 own skills)
+#
+# Total: 71 unique SKILL.md files · 0 duplicate names
+# =============================================================================
 
 install_order:
-  # Phase 1: Foundation — bootstrap the project
+  # --- Phase 1: Bootstrap — foundation for a new project ---
   - "project-bootstrap-full"
 
-  # Phase 2: Engineering standards — quality gates and discipline
+  # --- Phase 2: Engineering standards — quality discipline ---
   - "engineering-quality-gates"
   - "solid-code-design"
-  - "test-driven-development"
-  - "loop-engineering"
-  - "quality-gates"
+  - "tdd-workflow"
+  - "loop-engineering-v2"
+  - "precision-workflow"
   - "engineering-standards-orchestrator"
 
-  # Phase 3: Suite core — orchestration and control plane
+  # --- Phase 3: Suite core — orchestration & control plane ---
+  - "test-driven-development"
+  - "solid-design"
+  - "loop-engineering"
+  - "quality-gates"
   - "engineering-orchestrator"
   - "implementation-council"
   - "artifact-production"
@@ -33,11 +44,11 @@ install_order:
   - "agent-control-plane"
   - "suite-orchestrator"
 
-  # Phase 4: Design — design system and taste
+  # --- Phase 4: Design system ---
   - "design-system-master"
   - "amazon-ad-console-redesign"
 
-  # Phase 5: Agent skills — community library skills
+  # --- Phase 5: Agent library skills ---
   - "composio-cli"
   - "design-taste-frontend"
   - "high-end-visual-design"
@@ -45,10 +56,39 @@ install_order:
   - "solid"
   - "tdd"
 
-  # Phase 6: Precision workflow specialist
-  - "precision-workflow"
-
 skills:
+  # === ENGINEERING STANDARDS (from projectamazonph/engineering-standards) ===
+  - name: "engineering-quality-gates"
+    category: "engineering"
+    source: "projectamazonph/engineering-standards"
+    responsibility: "Return PASS or BLOCKED from required engineering evidence."
+
+  - name: "engineering-standards-orchestrator"
+    category: "engineering"
+    source: "projectamazonph/engineering-standards"
+    responsibility: "Orchestrates all 6 engineering standards skills as one cohesive workflow."
+
+  - name: "loop-engineering-v2"
+    category: "engineering"
+    source: "projectamazonph/engineering-standards"
+    responsibility: "Engineering-standards variant of loop-engineering. Routes to tdd-workflow, solid-code-design, engineering-quality-gates."
+
+  - name: "solid-code-design"
+    category: "engineering"
+    source: "projectamazonph/engineering-standards"
+    responsibility: "Define proportionate responsibilities, contracts, extension seams, and dependency direction."
+
+  - name: "tdd-workflow"
+    category: "engineering"
+    source: "projectamazonph/engineering-standards"
+    responsibility: "Prove one behavior through a valid Red-Green-Refactor cycle. Refactoring belongs to review stage."
+
+  - name: "precision-workflow"
+    category: "engineering"
+    source: "projectamazonph/engineering-standards"
+    responsibility: "Specialist skill for long-task execution, memory management, safety, and artifact production."
+
+  # === SUITE CORE (from projectamazonph/agent-skill-suite) ===
   - name: "suite-orchestrator"
     category: "suite-core"
     source: "projectamazonph/agent-skill-suite"
@@ -84,46 +124,33 @@ skills:
     source: "projectamazonph/agent-skill-suite"
     responsibility: "Capture, retrieve, curate, and forget durable local agent memory."
 
-  - name: "engineering-quality-gates"
-    category: "engineering"
-    source: "projectamazonph/engineering-standards"
-    responsibility: "Return PASS or BLOCKED from required engineering evidence."
+  - name: "test-driven-development"
+    category: "suite-core"
+    source: "projectamazonph/agent-skill-suite"
+    responsibility: "One observable software behavior at a time — Red-Green-Refactor within the suite protocol."
 
-  - name: "engineering-standards-orchestrator"
-    category: "engineering"
-    source: "projectamazonph/engineering-standards"
-    responsibility: "Orchestrates all 5 engineering standards skills as one cohesive workflow."
+  - name: "solid-design"
+    category: "suite-core"
+    source: "projectamazonph/agent-skill-suite"
+    responsibility: "Define proportionate responsibilities, contracts, extension seams."
 
   - name: "loop-engineering"
-    category: "engineering"
-    source: "projectamazonph/engineering-standards"
-    responsibility: "Control iteration size, evidence, observation, and adjustment."
-
-  - name: "solid-code-design"
-    category: "engineering"
-    source: "projectamazonph/engineering-standards"
-    responsibility: "Define proportionate responsibilities, contracts, extension seams, and dependency direction."
-
-  - name: "test-driven-development"
-    category: "engineering"
-    source: "projectamazonph/engineering-standards"
-    responsibility: "Prove one behavior through a valid Red-Green-Refactor cycle."
+    category: "suite-core"
+    source: "projectamazonph/agent-skill-suite"
+    responsibility: "Control iteration size, evidence, observation, and adjustment (suite protocol version)."
 
   - name: "quality-gates"
-    category: "engineering"
-    source: "projectamazonph/engineering-standards"
-    responsibility: "Return PASS or BLOCKED from required engineering evidence."
+    category: "suite-core"
+    source: "projectamazonph/agent-skill-suite"
+    responsibility: "Return PASS or BLOCKED from required engineering evidence (suite protocol version)."
 
-  - name: "precision-workflow"
-    category: "engineering"
-    source: "projectamazonph/engineering-standards"
-    responsibility: "Specialist skill for long-task execution, memory management, safety, and artifact production."
-
+  # === BOOTSTRAP (from projectamazonph/project-bootstrap-full) ===
   - name: "project-bootstrap-full"
     category: "bootstrap"
     source: "projectamazonph/project-bootstrap-full"
     responsibility: "Create a complete project foundation with SOLID architecture, TDD protocols, documentation suite, data logic wireframes, and scaffold."
 
+  # === DESIGN (from projectamazonph/design-skill-pack) ===
   - name: "design-system-master"
     category: "design"
     source: "projectamazonph/design-skill-pack"
@@ -134,6 +161,7 @@ skills:
     source: "projectamazonph/design-skill-pack"
     responsibility: "Redesign guidance for Amazon ad console projects."
 
+  # === AGENT LIBRARY SKILLS (from projectamazonph/agent-skills-library) ===
   - name: "composio-cli"
     category: "agent-skills"
     source: "projectamazonph/agent-skills-library"
@@ -157,218 +185,235 @@ skills:
   - name: "solid"
     category: "agent-skills"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "SOLID principles & clean code design."
+    responsibility: "SOLID principles and clean code design."
 
   - name: "tdd"
     category: "agent-skills"
     source: "projectamazonph/agent-skills-library"
     responsibility: "Test-driven development workflow."
 
+  # === MATTPOCOCK SKILLS (from projectamazonph/agent-skills-library) ===
+  # Engineering active skills
   - name: "ask-matt"
-    category: "mattpocock-skills/engering"
+    category: "mattpocock-skills/engineering"
     source: "projectamazonph/agent-skills-library"
     responsibility: "Router over all user-invoked Matt Pocock engineering skills."
 
   - name: "code-review"
-    category: "mattpocock-skills/engering"
+    category: "mattpocock-skills/engineering"
     source: "projectamazonph/agent-skills-library"
     responsibility: "Two-axis review: Standards + Spec."
 
   - name: "codebase-design"
-    category: "mattpocock-skills/engering"
+    category: "mattpocock-skills/engineering"
     source: "projectamazonph/agent-skills-library"
     responsibility: "Design deep modules with clear responsibilities."
 
   - name: "diagnosing-bugs"
-    category: "mattpocock-skills/engering"
+    category: "mattpocock-skills/engineering"
     source: "projectamazonph/agent-skills-library"
     responsibility: "Disciplined bug diagnosis loop."
 
   - name: "domain-modeling"
-    category: "mattpocock-skills/engering"
+    category: "mattpocock-skills/engineering"
     source: "projectamazonph/agent-skills-library"
     responsibility: "Build and sharpen domain model."
 
   - name: "grill-with-docs"
-    category: "mattpocock-skills/engering"
+    category: "mattpocock-skills/engineering"
     source: "projectamazonph/agent-skills-library"
     responsibility: "Grilling session + domain model + CONTEXT.md."
 
   - name: "implement"
-    category: "mattpocock-skills/engering"
+    category: "mattpocock-skills/engineering"
     source: "projectamazonph/agent-skills-library"
     responsibility: "Build from spec/tickets with TDD + code-review."
 
   - name: "improve-codebase-architecture"
-    category: "mattpocock-skills/engering"
+    category: "mattpocock-skills/engineering"
     source: "projectamazonph/agent-skills-library"
     responsibility: "Scan for deepening opportunities."
 
   - name: "prototype"
-    category: "mattpocock-skills/engering"
+    category: "mattpocock-skills/engineering"
     source: "projectamazonph/agent-skills-library"
     responsibility: "Throwaway prototype for design questions."
 
   - name: "research"
-    category: "mattpocock-skills/engering"
+    category: "mattpocock-skills/engineering"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Investigate against primary sources."
+    responsibility: "Research deep questions via docs, web, codebase."
 
   - name: "resolving-merge-conflicts"
-    category: "mattpocock-skills/engering"
+    category: "mattpocock-skills/engineering"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Work through conflicts hunk by hunk."
+    responsibility: "Resolve complex merge conflicts."
 
   - name: "setup-matt-pocock-skills"
-    category: "mattpocock-skills/engering"
+    category: "mattpocock-skills/engineering"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Setup and configure Matt Pocock engineering skills."
+    responsibility: "Set up and bootstrap the Matt Pocock engineering skills."
 
   - name: "to-spec"
-    category: "mattpocock-skills/engering"
+    category: "mattpocock-skills/engineering"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Turn conversation into a spec."
+    responsibility: "Turn tasks into concrete specs and tickets."
 
   - name: "to-tickets"
-    category: "mattpocock-skills/engering"
+    category: "mattpocock-skills/engineering"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Break plan into tracer-bullet tickets."
+    responsibility: "Decompose specs into actionable tickets."
 
   - name: "triage"
-    category: "mattpocock-skills/engering"
+    category: "mattpocock-skills/engineering"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Move issues through triage state machine."
+    responsibility: "Triage tasks, categorize, and prioritize."
 
   - name: "wayfinder"
-    category: "mattpocock-skills/engering"
+    category: "mattpocock-skills/engineering"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Plan huge work as investigation tickets."
+    responsibility: "Navigate the codebase and explain the codebase."
 
-  - name: "handoff"
-    category: "mattpocock-skills/productivity"
-    source: "projectamazonph/agent-skills-library"
-    responsibility: "Compact conversation for next agent."
-
-  - name: "teach"
-    category: "mattpocock-skills/productivity"
-    source: "projectamazonph/agent-skills-library"
-    responsibility: "Teach user a skill over sessions."
-
-  - name: "writing-great-skills"
-    category: "mattpocock-skills/productivity"
-    source: "projectamazonph/agent-skills-library"
-    responsibility: "Write effective skill files."
-
-  - name: "grill-me"
-    category: "mattpocock-skills/productivity"
-    source: "projectamazonph/agent-skills-library"
-    responsibility: "Relentless interview about plan/design."
-
-  - name: "grilling"
-    category: "mattpocock-skills/productivity"
-    source: "projectamazonph/agent-skills-library"
-    responsibility: "Grill-me productivity skill."
-
-  - name: "edit-article"
-    category: "mattpocock-skills/personal"
-    source: "projectamazonph/agent-skills-library"
-    responsibility: "Edit and improve articles."
-
-  - name: "obsidian-vault"
-    category: "mattpocock-skills/personal"
-    source: "projectamazonph/agent-skills-library"
-    responsibility: "Manage Obsidian vault for knowledge."
-
+  # In-progress / experimental
   - name: "batch-grill-me"
     category: "mattpocock-skills/in-progress"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Batch grill-me session."
 
   - name: "claude-handoff"
     category: "mattpocock-skills/in-progress"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Handoff to Claude agent."
 
   - name: "loop-me"
     category: "mattpocock-skills/in-progress"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Loop execution agent."
 
   - name: "setup-ts-deep-modules"
     category: "mattpocock-skills/in-progress"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Setup TypeScript deep modules."
 
   - name: "to-questionnaire"
     category: "mattpocock-skills/in-progress"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Convert to questionnaire format."
 
   - name: "wizard"
     category: "mattpocock-skills/in-progress"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Wizard skill for setup."
 
   - name: "writing-beats"
     category: "mattpocock-skills/in-progress"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Write content beats."
 
   - name: "writing-fragments"
     category: "mattpocock-skills/in-progress"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Write content fragments."
 
   - name: "writing-shape"
     category: "mattpocock-skills/in-progress"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Write content shape."
 
+  # Misc
   - name: "git-guardrails-claude-code"
     category: "mattpocock-skills/misc"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Git guardrails for Claude Code."
 
   - name: "migrate-to-shoehorn"
     category: "mattpocock-skills/misc"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Migrate to shoehorn pattern."
 
   - name: "scaffold-exercises"
     category: "mattpocock-skills/misc"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Scaffold coding exercises."
 
   - name: "setup-pre-commit"
     category: "mattpocock-skills/misc"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Setup pre-commit hooks."
 
+  # Personal
+  - name: "edit-article"
+    category: "mattpocock-skills/personal"
+    source: "projectamazonph/agent-skills-library"
+
+  - name: "obsidian-vault"
+    category: "mattpocock-skills/personal"
+    source: "projectamazonph/agent-skills-library"
+
+  # Productivity
+  - name: "grill-me"
+    category: "mattpocock-skills/productivity"
+    source: "projectamazonph/agent-skills-library"
+    responsibility: "Slash-command redirect to /grilling."
+
+  - name: "grilling"
+    category: "mattpocock-skills/productivity"
+    source: "projectamazonph/agent-skills-library"
+    responsibility: "Grill the user relentlessly about a plan, decision, or idea."
+
+  - name: "handoff"
+    category: "mattpocock-skills/productivity"
+    source: "projectamazonph/agent-skills-library"
+
+  - name: "teach"
+    category: "mattpocock-skills/productivity"
+    source: "projectamazonph/agent-skills-library"
+
+  - name: "writing-great-skills"
+    category: "mattpocock-skills/productivity"
+    source: "projectamazonph/agent-skills-library"
+
+  # Deprecated (kept for reference)
   - name: "design-an-interface"
     category: "mattpocock-skills/deprecated"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Deprecated: Design interface skill."
-    deprecated: true
 
   - name: "qa"
     category: "mattpocock-skills/deprecated"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Deprecated: QA skill."
-    deprecated: true
 
   - name: "request-refactor-plan"
     category: "mattpocock-skills/deprecated"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Deprecated: Request refactor plan skill."
-    deprecated: true
 
   - name: "ubiquitous-language"
     category: "mattpocock-skills/deprecated"
     source: "projectamazonph/agent-skills-library"
-    responsibility: "Deprecated: Ubiquitous language skill."
-    deprecated: true
 
-  - name: "precision-workflow"
-    category: "engineering/specialists"
-    source: "projectamazonph/engineering-standards"
-    responsibility: "Specialist skill for long-task execution with safety and memory."
+  # === OWN SKILLS (personal curated set from skills-lock.json) ===
+  - name: "critical-thinking-logical-reasoning"
+    category: "own"
+    source: "sammcj/agentic-coding"
+    responsibility: "Stress-test claims and evaluate reasoning quality."
+
+  - name: "receiving-code-review"
+    category: "own"
+    source: "obra/superpowers"
+    responsibility: "Best practices for receiving code review feedback effectively."
+
+  - name: "requesting-code-review"
+    category: "own"
+    source: "obra/superpowers"
+    responsibility: "How to request and structure effective code reviews."
+
+  - name: "systematic-debugging"
+    category: "own"
+    source: "obra/superpowers"
+    responsibility: "Debug mysterious failures and production incidents systematically."
+
+  - name: "tdd-addyosmani"
+    category: "own"
+    source: "addyosmani/agent-skills"
+    responsibility: "Standalone lightweight TDD workflow (alternative to suite-core test-driven-development)."
+
+skill_aliases:
+  # loop-engineering: two versions exist with different routing targets
+  # - suite-core/loop-engineering → routes to test-driven-development, solid-design, quality-gates
+  # - engineering/loop-engineering-v2 → routes to tdd-workflow, solid-code-design, engineering-quality-gates
+  - name: "loop-engineering-v2"
+    aliases: ["loop-engineering-eng-std"]
+    description: "Engineering-standards variant of loop-engineering (routes to tdd-workflow, solid-code-design, engineering-quality-gates)"
+
+  # tdd: two versions exist with different content
+  # - agent-skills/tdd → concise agent-skill format
+  # - own/tdd-addyosmani → 398-line standalone guide
+  - name: "tdd-addyosmani"
+    aliases: ["test-driven-development-addyosmani"]
+    description: "Standalone TDD skill from addyosmani/agent-skills"

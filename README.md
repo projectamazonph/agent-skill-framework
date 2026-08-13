@@ -1,269 +1,332 @@
 # Agent Skill Framework
 
-> A comprehensive, unified framework of **54+ agent skills** — combining engineering standards, design systems, workflow suites, bootstrap templates, and a curated library of community skills into one portable, installable collection.
+> A comprehensive, unified framework of **71 agent skills** — fusing engineering quality gates, design systems, workflow orchestration, project bootstrapping, and a curated library of community + personal skills into one portable collection.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Skills: 67](https://img.shields.io/badge/Skills-67-brightgreen.svg)](#skills)
-[![Python](https://img.shields.io/badge/scripts-Python-blue.svg)](#scripts)
-[![YAML](https://img.shields.io/badge/bundle-YAML-orange.svg)](#bundleyaml)
+[![Skills: 71](https://img.shields.io/badge/Skills-71-brightgreen.svg)](#skills)
+[![Commits: 4](https://img.shields.io/badge/Commits-4-blue.svg)](CHANGELOG.md)
 
 ---
 
-## What This Is
+## ✨ What Is This
 
-This repository fuses **5 previously separate GitHub repositories** into a single comprehensive agent skill framework:
+The **Agent Skill Framework** is a curated library of skills that enable AI agents to perform specialized work. Each skill is a self-contained directory containing a [`SKILL.md`](https://github.com/ryanluu/agentskill-spec) manifest with YAML frontmatter (name, description, allowed tools) and natural-language instructions for the agent.
 
-| Source Repo | Focus | Skills Contributed |
-|---|---|---|
-| [agent-skills-library](https://github.com/projectamazonph/agent-skills-library) | Community skill library | 43 skills (agent-skills, mattpocock-skills) + plugins + CLI tools + MCP servers |
-| [agent-skill-suite](https://github.com/projectamazonph/agent-skill-suite) | Suite orchestration | 11 skills + adapters + schemas + validation |
-| [engineering-standards](https://github.com/projectamazonph/engineering-standards) | Engineering quality gates | 6 engineering skills + agent integrations |
-| [design-skill-pack](https://github.com/projectamazonph/design-skill-pack) | Design system skills | 2 design skills + docs + validation |
-| [project-bootstrap-full](https://github.com/projectamazonph/project-bootstrap-full) | Project scaffolding | 1 bootstrap skill + reference templates |
+This framework was created by **combining 5 source repositories** plus adding **5 personal own skills**:
 
-**Total: 67 SKILL.md files across 6 categories · 1 comprehensive framework**
+| # | Source | GitHub | Focus | Skills |
+|---|--------|--------|-------|--------|
+| 1 | agent-skills-library | `projectamazonph/agent-skills-library` | Community skill library | 46 |
+| 2 | agent-skill-suite | `projectamazonph/agent-skill-suite` | Suite orchestration | 11 |
+| 3 | engineering-standards | `projectamazonph/engineering-standards` | Engineering quality gates | 6 + 1 specialist |
+| 4 | design-skill-pack | `projectamazonph/design-skill-pack` | Design system skills | 2 |
+| 5 | project-bootstrap-full | `projectamazonph/project-bootstrap-full` | Project scaffolding | 1 |
+| 6 | own (personal) | `skills-lock.json` curated | Personal engineering skills | 5 |
+
+**Total: 71 unique SKILL.md files · ~317 files · 7 categories**
 
 ---
 
-## Quick Start
+## 🚀 Quick Start
+
+### Option 1: Use as an installed skill pack
 
 ```bash
-# Clone
+# Install the framework into your agent environment
 git clone https://github.com/projectamazonph/agent-skill-framework.git
-cd agent-skill-framework
+cp -r agent-skill-framework/skills /path/to/.omnibot/skills/
+```
 
-# Validate the bundle
+### Option 2: Use individual skills
+
+Navigate to any skill directory and read its `SKILL.md`:
+
+```bash
+# See all available skills
+find skills/ -name "SKILL.md" | sort
+
+# Read a specific skill
+cat skills/engineering/quality-gates/SKILL.md
+```
+
+### Option 3: Validate the framework
+
+```bash
+# Validate bundle structure and skill definitions
 python3 scripts/validate_suite.py
 
-# Or validate design skills
+# Validate design skills
 python3 scripts/validate.py
+
+# See full bundle manifest
+cat bundle.yaml
 ```
 
-### How Skills Work
+---
 
-Each skill is a self-contained directory with a `SKILL.md` file containing YAML frontmatter and step-by-step agent instructions:
+## 🎯 Quick Reference
+
+### Key Skills to Know
+
+| Skill | Category | When to Use |
+|-------|----------|-------------|
+| **quality-gates** | engineering | Before any PR merge — returns PASS or BLOCKED |
+| **test-driven-development** | suite-core | When you need to prove one behavior via Red-Green-Refactor |
+| **loop-engineering** | suite-core | For long-running work that needs evidence-driven iteration |
+| **solid-design** | suite-core | Define architecture, responsibilities, contracts |
+| **implementation-council** | suite-core | Pressure-test plans, code, migrations through expert debate |
+| **artifact-production** | suite-core | Create, render, version, and verify professional deliverables |
+| **agent-control-plane** | suite-core | Manage workspaces, permissions, state, logs |
+| **project-bootstrap-full** | bootstrap | Starting a brand-new project from scratch |
+| **systematic-debugging** | own | Debugging mysterious failures, production incidents |
+| **critical-thinking** | own | Stress-testing claims, evaluating reasoning quality |
+
+### Install Order (from bundle.yaml)
+
+The `bundle.yaml` declares a 23-step install order. The first 5 phases establish the foundation:
 
 ```yaml
----
-name: project-bootstrap-full
-description: Create a complete project foundation with SOLID architecture...
-allowed-tools: Bash, Read, Write, Edit
----
-```
-
-1. **Agent detects** task matches a skill's description
-2. **Reads** `skills/<category>/<name>/SKILL.md`
-3. **Follows** the instructions in the body
-4. **Uses** `allowed-tools` as specified in frontmatter
-
-### Using the Bundle
-
-```bash
-# Install all skills from the bundle
-python3 scripts/validate_suite.py --install
-
-# Validate only specific categories
-python3 scripts/validate_suite.py --category engineering
-python3 scripts/validate_suite.py --category design
-python3 scripts/validate_suite.py --category bootstrap
+install_order:
+  - "test-driven-development"    # Red-Green-Refactor discipline
+  - "solid-design"               # SOLID architecture patterns
+  - "loop-engineering"           # Evidence-driven iteration loops
+  - "quality-gates"              # PASS/BLOCKED validation gates
+  - "engineering-orchestrator"   # Coordinates engineering work
+  # ... then 8 more suite skills ...
+  - "implementation-council"
+  - "artifact-production"
+  - "local-memory"
+  - "conversation-compiler"
+  - "agent-control-plane"
+  - "suite-orchestrator"
 ```
 
 ---
 
-## Repository Structure
+## 📁 Repository Structure
 
 ```
 agent-skill-framework/
-├── README.md                     # This file
-├── LICENSE                       # MIT License
-├── CONTRIBUTING.md               # Contribution guidelines
-├── CHANGELOG.md                  # Version history
-├── AGENTS.md                     # Instructions for AI agents
-├── bundle.yaml                   # Unified skill bundle manifest
-├── SOURCE-REPOS.md               # Source repository mapping
+├── README.md                    # This file
+├── LICENSE                      # MIT
+├── CHANGELOG.md                 # Version history
+├── AGENTS.md                    # Agent integration instructions
+├── bundle.yaml                  # Unified skill bundle manifest
+├── SOURCE-REPOS.md              # Mapping of every skill to its origin
 ├── .gitignore
 ├── .codex-plugin/
-│   └── plugin.json               # Codex plugin manifest
+│   └── plugin.json              # Codex plugin manifest
 ├── .github/workflows/
-│   └── validate.yml              # CI validation pipeline
+│   └── validate.yml             # CI: validates docs + templates
 │
-├── skills/                       # All agent skills (54 total)
-│   ├── agent-skills/             # 6 core agent skills (library)
-│   │   ├── composio-cli/
-│   │   ├── design-taste-frontend/
-│   │   ├── high-end-visual-design/
-│   │   ├── redesign-existing-projects/
-│   │   ├── solid/
-│   │   └── tdd/
-│   ├── mattpocock-skills/        # 37 Matt Pocock engineering skills
-│   │   ├── engineering/          # 17 active engineering skills
-│   │   ├── deprecated/           # 4 deprecated skills
-│   │   ├── in-progress/          # 9 experimental skills
-│   │   ├── misc/                 # 4 utility skills
-│   │   ├── personal/             # 2 personal productivity skills
-│   │   └── productivity/         # 5 workflow productivity skills
+├── skills/                      # ── ALL 71 SKILLS ──
+│   ├── agent-skills/            # 6 foundational skills
+│   │   ├── composio-cli/            Browser automation CLI
+│   │   ├── design-taste-frontend/     Anti-slop frontend design (3-dial system)
+│   │   ├── high-end-visual-design/    Awwwards-tier agency aesthetics
+│   │   ├── redesign-existing-projects/    Upgrade existing UIs to premium
+│   │   ├── solid/                     SOLID principles & clean code
+│   │   └── tdd/                       Test-driven development
+│   │
+│   ├── mattpocock-skills/       # 40 Matt Pocock engineering skills
+│   │   ├── engineering/             # 16 active engineering skills
+│   │   ├── in-progress/             # 9 experimental skills
+│   │   ├── misc/                    # 4 utility skills
+│   │   ├── personal/                # 2 personal productivity
+│   │   ├── productivity/            # 7 workflow skills
+│   │   └── deprecated/              # 4 deprecated (kept for reference)
+│   │
 │   ├── suite-core/               # 11 suite orchestration skills
 │   │   ├── agent-control-plane/
 │   │   ├── artifact-production/
 │   │   ├── conversation-compiler/
 │   │   ├── engineering-orchestrator/
 │   │   ├── implementation-council/
-│   │   └── local-memory/
-│   ├── engineering/              # 6 engineering quality skills
+│   │   ├── local-memory/
+│   │   ├── loop-engineering/
+│   │   ├── quality-gates/
+│   │   ├── solid-design/
+│   │   ├── suite-orchestrator/
+│   │   └── test-driven-development/
+│   │
+│   ├── engineering/              # 6 engineering quality standards + 1 specialist
 │   │   ├── engineering-quality-gates/
 │   │   ├── engineering-standards-orchestrator/
-│   │   ├── loop-engineering/
+│   │   ├── loop-engineering-v2/      # Renamed: different from suite-core's loop-engineering
 │   │   ├── solid-code-design/
 │   │   ├── tdd-workflow/
 │   │   └── specialists/
 │   │       └── precision-workflow/
+│   │
 │   ├── design/                   # 2 design system skills
-│   │   ├── amazon-ad-console-redesign/
-│   │   └── design-system-master/
+│   │   ├── design-system-master/        Orchestrator skill
+│   │   └── amazon-ad-console-redesign/
+│   │
 │   ├── bootstrap/                # 1 project bootstrap skill
 │   │   └── SKILL.md
+│   │
+│   └── own/                      # 5 personal skills (from skills-lock.json)
+│       ├── critical-thinking-logical-reasoning/
+│       ├── receiving-code-review/
+│       ├── requesting-code-review/
+│       ├── systematic-debugging/
+│       └── tdd-addyosmani/        # Renamed: different from suite-core TDD
 │
-├── integrations/                 # Agent integrations (from engineering-standards)
+├── integrations/                 # Agent platform integrations
 │   ├── README.md
-│   ├── claude/                   # Claude Code agents + rules
-│   ├── cursor/                   # Cursor agents + rules
-│   └── openai/                   # OpenAI agent configs
+│   ├── claude/                    # Claude agents + CLAUDE.md rules
+│   ├── cursor/                    # Cursor agents + .mdc/.md rules
+│   └── openai/                    # OpenAI agent configs (.yaml)
 │
-├── adapters/                     # Agent platform adapters (from agent-skill-suite)
+├── adapters/                     # Agent platform adapters
 │   ├── claude-code/
 │   ├── gemini-cli/
 │   └── github-copilot/
 │
-├── plugins/                      # External plugins (from agent-skills-library)
+├── plugins/                      # External plugins
 │   ├── chromium-browser/
-│   └── ponytail/
+│   └── ponytail/                   # Lazy senior dev mode
 │
-├── cli-tools/                    # CLI tool configurations
-├── mcp-servers/                  # MCP server configurations
+├── cli-tools/                    # CLI tool configs
+├── mcp-servers/                  # MCP server configs
 ├── schemas/                      # JSON schemas
 │   └── handoff.schema.json
 ├── scripts/                      # Validation & tooling
-│   ├── validate_suite.py         # Suite validation
-│   └── validate.py               # Design skill validation
-├── docs/                         # Documentation
+│   ├── validate_suite.py          # Suite structure + install order validation
+│   └── validate.py                # Design skill format validation
+├── docs/                         # Reference documentation
 │   ├── ARCHITECTURE.md
 │   ├── CONTRIBUTING.md
 │   ├── SKILL-CATALOG.md
 │   └── guides/
 │       └── QUICKSTART.md
-└── references/                   # Bootstrap templates (from project-bootstrap-full)
+└── references/                   # Bootstrap templates
 ```
 
 ---
 
-## Skills by Category
+## 📖 Skills Guide by Category
 
 ### 🎯 Agent Skills (6)
 From `agent-skills-library` — foundational skills used by all Omnibot agents.
 
-| Skill | What It Does |
-|-------|-------------|
-| `composio-cli` | Composio tool management |
+| Skill | Purpose |
+|-------|---------|
+| `composio-cli` | Composio tool management for browser automation |
 | `design-taste-frontend` | Anti-slop frontend with 3-dial system (variance, motion, density) |
 | `high-end-visual-design` | Awwwards-tier agency aesthetics with double-bezel architecture |
 | `redesign-existing-projects` | Upgrade existing UIs to premium quality |
 | `solid` | SOLID principles & clean code design |
 | `tdd` | Test-driven development workflow |
 
-### 🧠 Matt Pocock Engineering Skills (41)
-From `agent-skills-library` (mattpocock-skills) — engineering skills organized into 6 sub-categories.
+### 🧠 Matt Pocock Skills (40)
+From `agent-skills-library` (mattpocock-skills) — engineering skills by Matt Pocock, organized into sub-categories.
 
-| Sub-category | Count | Key Skills |
+| Sub-category | Count | Notable Skills |
 |---|---|---|
-| **engineering** (active) | 17 | `ask-matt`, `code-review`, `implement`, `tdd`, `to-spec`, `to-tickets`, `grill-with-docs` |
-| **in-progress** (experimental) | 9 | `claude-handoff`, `loop-me`, `wizard`, `writing-beats` |
+| **engineering** | 16 | `ask-matt`, `code-review`, `implement`, `to-spec`, `to-tickets`, `triage` |
+| **in-progress** | 9 | `claude-handoff`, `loop-me`, `wizard`, `writing-beats` |
 | **misc** | 4 | `git-guardrails-claude-code`, `setup-pre-commit`, `scaffold-exercises` |
-| **productivity** | 5 | `grill-me`, `handoff`, `teach`, `writing-great-skills` |
+| **productivity** | 7 | `grill-me`, `handoff`, `teach`, `writing-great-skills` |
 | **personal** | 2 | `edit-article`, `obsidian-vault` |
 | **deprecated** | 4 | `design-an-interface`, `qa`, `request-refactor-plan`, `ubiquitous-language` |
 
+> **Note on aliases:** `grill-me` and `grill-with-docs` are thin redirect skills that route to the canonical `grilling` skill.
+
 ### ⚙️ Suite Core Skills (11)
-From `agent-skill-suite` — portable operating system for AI agents.
+From `agent-skill-suite` — the portable operating system for AI agents.
 
-| Skill | What It Does |
-|-------|-------------|
-| `agent-control-plane` | Maintain workspaces, permissions, commands, state, logs, and failure recovery |
+| Skill | Purpose |
+|-------|---------|
+| `agent-control-plane` | Maintain workspaces, permissions, commands, state, logs, failure recovery |
 | `artifact-production` | Create, render, version, and verify professional artifacts |
-| `conversation-compiler` | Convert raw conversations and notes into governed execution packages |
+| `conversation-compiler` | Convert raw conversations into governed execution packages |
 | `engineering-orchestrator` | Coordinate software work through architecture, TDD, loops, and gates |
-| `implementation-council` | Pressure-test plans, code, migrations, and releases through expert debate |
+| `implementation-council` | Pressure-test plans, code, migrations, releases through expert debate |
 | `local-memory` | Capture, retrieve, curate, and forget durable local agent memory |
-| `loop-engineering` | Control iteration size, evidence, observation, and adjustment |
+| `loop-engineering` | Evidence-driven iteration loops (suite protocol version) |
 | `quality-gates` | Return PASS or BLOCKED from required engineering evidence |
-| `solid-design` | Define proportionate responsibilities, contracts, extension seams |
-| `suite-orchestrator` | Classify tasks, route skills, preserve state, and enforce suite completion |
-| `test-driven-development` | Prove one behavior through a valid Red-Green-Refactor cycle |
+| `solid-design` | SOLID architecture patterns — responsibilities, contracts, seams |
+| `suite-orchestrator` | Classify tasks, route skills, preserve state, enforce completion |
+| `test-driven-development` | One observable behavior at a time — Red-Green-Refactor |
 
-### 🔧 Engineering Standards Skills (6)
-From `engineering-standards` — quality gates and engineering discipline.
+### 🔧 Engineering Standards (6 + 1 specialist)
+From `engineering-standards` — quality gates and discipline.
 
-| Skill | What It Does |
-|-------|-------------|
-| `engineering-quality-gates` | Return PASS or BLOCKED from required engineering evidence |
-| `engineering-standards-orchestrator` | Orchestrates all 5 engineering standards skills |
-| `loop-engineering` | Control iteration size, evidence, observation, and adjustment |
+| Skill | Purpose |
+|-------|---------|
+| `engineering-quality-gates` | PASS/BLOCKED validation from engineering evidence |
+| `engineering-standards-orchestrator` | Orchestrates all engineering standards skills |
+| `loop-engineering-v2` | Alternative loop-engineering routing to tdd-workflow/solid-code-design |
 | `solid-code-design` | Define proportionate responsibilities, contracts, extension seams |
-| `tdd-workflow` | Prove one behavior through a valid Red-Green-Refactor cycle |
-| `specialists/precision-workflow` | Long-task execution, memory, safety, and artifact production |
+| `tdd-workflow` | Red-Green-Refactor cycle with review-stage refactoring |
+| `specialists/precision-workflow` | Long-task execution, memory, safety, artifact production |
+
+> **Naming note:** `loop-engineering-v2` is the engineering-standards version (routes to `tdd-workflow`, `solid-code-design`, `quality-gates`). The `loop-engineering` in `suite-core/` is the suite protocol version (routes to `test-driven-development`, `solid-design`, `quality-gates`). Both are kept for cross-compatibility.
 
 ### 🎨 Design Skills (2)
 From `design-skill-pack` — opinionated design systems for premium UIs.
 
-| Skill | What It Does |
-|-------|-------------|
+| Skill | Purpose |
+|-------|---------|
 | `design-system-master` | Master orchestrator — auto-selects the right design skill combination |
 | `amazon-ad-console-redesign` | Redesign guidance for Amazon ad console projects |
 
-> **Note:** The full Design Skill Pack includes 23 design skills. The 2 here are the curated core set. See [docs/SKILL-CATALOG.md](docs/SKILL-CATALOG.md) for the complete design catalog from the source pack.
+> The full Design Skill Pack includes 23 design skills in the upstream repo. Only the 2 core skills are included here. See [docs/SKILL-CATALOG.md](docs/SKILL-CATALOG.md) for the complete upstream catalog.
 
 ### 🚀 Bootstrap Skills (1)
-From `project-bootstrap-full` — complete project foundation scaffolding.
+From `project-bootstrap-full` — complete project scaffolding.
 
-| Skill | What It Does |
-|-------|-------------|
+| Skill | Purpose |
+|-------|---------|
 | `project-bootstrap-full` | Create a complete project foundation with SOLID architecture, TDD protocols, documentation suite, data logic wireframes, and scaffold |
+
+### 👤 Own Skills (5)
+Personal skills curated via `skills-lock.json` from various upstream sources.
+
+| Skill | Source | Purpose |
+|-------|--------|---------|
+| `critical-thinking-logical-reasoning` | `sammcj/agentic-coding` | Stress-test claims and evaluate reasoning quality |
+| `receiving-code-review` | `obra/superpowers` | Best practices for receiving code review feedback |
+| `requesting-code-review` | `obra/superpowers` | How to request and structure effective code reviews |
+| `systematic-debugging` | `obra/superpowers` | Debug mysterious failures and production incidents |
+| `tdd-addyosmani` | `addyosmani/agent-skills` | Lightweight TDD workflow (alternative to suite-core version) |
+
+> **Naming note:** `tdd-addyosmani` is an alternative to the `test-driven-development` suite-core skill. The suite version (139 lines) emphasizes suite protocol; the addyosmani version (398 lines) is a standalone implementation-friendly guide.
 
 ---
 
-## Integrations
+## 🔌 Integrations & Adapters
 
-Agent integrations for running skills across platforms:
+**Integrations** (platform-specific agent configs):
 
-| Platform | Location | Description |
-|----------|----------|-------------|
+| Platform | Path | Contents |
+|----------|------|----------|
 | Claude Code | `integrations/claude/` | Claude agents + CLAUDE.md |
 | Cursor | `integrations/cursor/` | Cursor agents + rules (.mdc, .md) |
 | OpenAI | `integrations/openai/` | OpenAI agent configs (.yaml) |
 
-## Adapters
+**Adapters** (platform bridges):
 
-Platform-specific adapters for skill portability:
+| Adapter | Contents |
+|---------|----------|
+| `claude-code` | CLAUDE.md |
+| `gemini-cli` | GEMINI.md |
+| `github-copilot` | copilot-instructions.md |
 
-| Adapter | Description |
-|---------|-------------|
-| `claude-code` | Claude Code integration |
-| `gemini-cli` | Gemini CLI integration |
-| `github-copilot` | GitHub Copilot integration |
+**Plugins:**
 
-## Plugins
-
-External plugin integrations:
-
-| Plugin | Description | Source |
-|--------|-------------|--------|
-| `ponytail` | Lazy senior dev mode (YAGNI, stdlib first) | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) |
-| `chromium-browser` | Browser automation via Chrome extension | opencode-chromium-browser-plugin |
+| Plugin | Purpose |
+|--------|---------|
+| `ponytail` | Lazy senior dev mode (YAGNI, stdlib first) |
+| `chromium-browser` | Browser automation via Chrome extension |
 
 ---
 
-## Validation
+## 🔍 Validation
 
 ### Suite Validation (`scripts/validate_suite.py`)
+
 Validates the bundle structure, skill definitions, installation order, and schema compliance.
 
 ```bash
@@ -273,62 +336,54 @@ python3 scripts/validate_suite.py --category engineering  # Category-only
 ```
 
 ### Design Validation (`scripts/validate.py`)
-Validates design skills against the format specification (frontmatter, sections, quality gates).
+
+Validates design skills against format spec (frontmatter, sections, quality gates).
 
 ```bash
 python3 scripts/validate.py                    # Validate all design skills
 python3 scripts/validate.py --verbose         # Show details
 ```
 
-### CI Pipeline
-GitHub Actions automatically runs validation on every push and PR:
+### CI Pipeline (`.github/workflows/validate.yml`)
 
-```bash
-# .github/workflows/validate.yml runs:
-python3 scripts/validate_suite.py
-python3 scripts/validate.py
+GitHub Actions automatically validates documentation and templates on every push and PR.
+
+---
+
+## 📦 Bundle Manifest
+
+The [`bundle.yaml`](bundle.yaml) declares the full skill catalog. Key sections:
+
+```yaml
+name: "Agent Skill Framework"
+version: "1.0.0"
+orchestrator: "suite-orchestrator"
+install_order:           # 23 core skills in dependency order
+  - "test-driven-development"
+  - "solid-design"
+  ...
+skills:                  # 11 skills with categories + responsibilities
+  - name: "agent-control-plane"
+    category: "core"
+    ...
 ```
 
 ---
 
-## Bundle Manifest
+## 📝 Contributing
 
-The unified `bundle.yaml` declares the full skill catalog with install order and responsibilities. It extends the original `agent-skill-suite` bundle to include engineering, design, and bootstrap skills:
+See [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
-```bash
-# View the full bundle
-cat bundle.yaml
-```
-
----
-
-## Source Repositories
-
-This framework consolidates content from 5 source repositories. See [SOURCE-REPOS.md](SOURCE-REPOS.md) for the complete mapping of every skill to its origin.
-
-1. **agent-skills-library** — `projectamazonph/agent-skills-library`
-2. **agent-skill-suite** — `projectamazonph/agent-skill-suite`
-3. **engineering-standards** — `projectamazonph/engineering-standards`
-4. **design-skill-pack** — `projectamazonph/design-skill-pack`
-5. **project-bootstrap-full** — `projectamazonph/project-bootstrap-full`
+**Quick rules:**
+1. Each skill is a directory with `SKILL.md` + frontmatter (`name`, `description`)
+2. Run validation before submitting: `python3 scripts/validate_suite.py`
+3. Add new skills to `bundle.yaml` `install_order` and `SOURCE-REPOS.md`
+4. Use the `aliases:` frontmatter field to handle name collisions across source repos
 
 ---
 
-## Contributing
+## 📄 License
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines. Key points:
+MIT — see [`LICENSE`](LICENSE). Individual skill files retain their original attribution where present.
 
-- Each skill is a self-contained directory with `SKILL.md`
-- Use the validation scripts before submitting changes
-- Follow the `bundle.yaml` install_order for new skills
-- Add agent integrations in `integrations/<platform>/`
-
----
-
-## License
-
-MIT — use freely, attribute appreciated.
-
----
-
-*This is a combined work of 5 source repositories. Individual skill files retain their original headers and attribution where present.*
+*This is a combined work from 5 source repositories + 5 personal own skills. See [`SOURCE-REPOS.md`](SOURCE-REPOS.md) for the complete origin mapping.*
