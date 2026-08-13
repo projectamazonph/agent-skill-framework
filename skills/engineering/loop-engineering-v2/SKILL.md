@@ -1,5 +1,5 @@
 ---
-name: loop-engineering
+name: "loop-engineering-v2"
 description: Execute non-trivial software work through small, observable build-test-observe-adjust loops with explicit hypotheses, evidence, outcomes, and next actions. Use throughout feature implementation, debugging, refactoring, migrations, performance work, and complex verification where feedback must guide each subsequent step. Use when work is stalling, changes are growing too large, failures repeat, or an engineering ledger is required.
 ---
 
