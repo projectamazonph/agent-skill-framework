@@ -1,0 +1,12 @@
+interface:
+  display_name: Test-Driven Development
+  short_description: Prove every behavior through red-green-refactor
+  default_prompt: Use $test-driven-development to implement this behavior test-first through
+    a valid red-green-refactor cycle.
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

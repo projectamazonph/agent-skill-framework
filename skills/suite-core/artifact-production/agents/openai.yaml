@@ -1,0 +1,4 @@
+interface:
+  display_name: "Artifact Production"
+  short_description: "Generate polished, versioned, verified artifacts"
+  default_prompt: "Use $artifact-production to create this artifact with the required format, design, metadata, and QA standards."

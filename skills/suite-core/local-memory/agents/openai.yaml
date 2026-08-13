@@ -1,0 +1,4 @@
+interface:
+  display_name: "Local Memory"
+  short_description: "Maintain fast durable memory on Android and Termux"
+  default_prompt: "Use $local-memory to capture, retrieve, curate, and maintain durable local memory for this workflow."

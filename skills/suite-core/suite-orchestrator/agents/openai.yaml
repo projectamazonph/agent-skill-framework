@@ -1,0 +1,6 @@
+interface:
+  display_name: "Suite Orchestrator"
+  short_description: "Route work across the complete agent skill suite"
+  default_prompt: "Use $suite-orchestrator to route this task through the correct skills and completion gates."
+policy:
+  allow_implicit_invocation: true

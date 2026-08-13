@@ -1,0 +1,4 @@
+interface:
+  display_name: "Conversation Compiler"
+  short_description: "Turn conversations into governed execution assets"
+  default_prompt: "Use $conversation-compiler to turn this conversation into a complete, prioritized, export-ready execution package."

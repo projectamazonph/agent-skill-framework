@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Control Plane"
+  short_description: "Keep agents stateful, controlled, and non-repetitive"
+  default_prompt: "Use $agent-control-plane to establish project state, permissions, routing, logs, and recovery before agents execute this task."

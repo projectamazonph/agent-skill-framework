@@ -1,0 +1,4 @@
+interface:
+  display_name: "Implementation Council"
+  short_description: "Pressure-test plans and code through expert debate"
+  default_prompt: "Use $implementation-council to pressure-test this implementation through structured expert debate and a readiness verdict."

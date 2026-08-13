@@ -3,7 +3,7 @@
 > A comprehensive, unified framework of **54+ agent skills** — combining engineering standards, design systems, workflow suites, bootstrap templates, and a curated library of community skills into one portable, installable collection.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Skills: 54+](https://img.shields.io/badge/Skills-54%2B-brightgreen.svg)](#skills)
+[![Skills: 67](https://img.shields.io/badge/Skills-67-brightgreen.svg)](#skills)
 [![Python](https://img.shields.io/badge/scripts-Python-blue.svg)](#scripts)
 [![YAML](https://img.shields.io/badge/bundle-YAML-orange.svg)](#bundleyaml)
 
@@ -16,12 +16,12 @@ This repository fuses **5 previously separate GitHub repositories** into a singl
 | Source Repo | Focus | Skills Contributed |
 |---|---|---|
 | [agent-skills-library](https://github.com/projectamazonph/agent-skills-library) | Community skill library | 43 skills (agent-skills, mattpocock-skills) + plugins + CLI tools + MCP servers |
-| [agent-skill-suite](https://github.com/projectamazonph/agent-skill-suite) | Suite orchestration | 6 core skills + adapters + schemas + validation |
+| [agent-skill-suite](https://github.com/projectamazonph/agent-skill-suite) | Suite orchestration | 11 skills + adapters + schemas + validation |
 | [engineering-standards](https://github.com/projectamazonph/engineering-standards) | Engineering quality gates | 6 engineering skills + agent integrations |
 | [design-skill-pack](https://github.com/projectamazonph/design-skill-pack) | Design system skills | 2 design skills + docs + validation |
 | [project-bootstrap-full](https://github.com/projectamazonph/project-bootstrap-full) | Project scaffolding | 1 bootstrap skill + reference templates |
 
-**Total: 54 SKILL.md files · 407 files · 1 comprehensive framework**
+**Total: 67 SKILL.md files across 6 categories · 1 comprehensive framework**
 
 ---
 
@@ -102,7 +102,7 @@ agent-skill-framework/
 │   │   ├── misc/                 # 4 utility skills
 │   │   ├── personal/             # 2 personal productivity skills
 │   │   └── productivity/         # 5 workflow productivity skills
-│   ├── suite-core/               # 6 suite orchestration skills
+│   ├── suite-core/               # 11 suite orchestration skills
 │   │   ├── agent-control-plane/
 │   │   ├── artifact-production/
 │   │   ├── conversation-compiler/
@@ -170,7 +170,7 @@ From `agent-skills-library` — foundational skills used by all Omnibot agents.
 | `solid` | SOLID principles & clean code design |
 | `tdd` | Test-driven development workflow |
 
-### 🧠 Matt Pocock Engineering Skills (37)
+### 🧠 Matt Pocock Engineering Skills (41)
 From `agent-skills-library` (mattpocock-skills) — engineering skills organized into 6 sub-categories.
 
 | Sub-category | Count | Key Skills |
@@ -182,7 +182,7 @@ From `agent-skills-library` (mattpocock-skills) — engineering skills organized
 | **personal** | 2 | `edit-article`, `obsidian-vault` |
 | **deprecated** | 4 | `design-an-interface`, `qa`, `request-refactor-plan`, `ubiquitous-language` |
 
-### ⚙️ Suite Core Skills (6)
+### ⚙️ Suite Core Skills (11)
 From `agent-skill-suite` — portable operating system for AI agents.
 
 | Skill | What It Does |
@@ -193,6 +193,11 @@ From `agent-skill-suite` — portable operating system for AI agents.
 | `engineering-orchestrator` | Coordinate software work through architecture, TDD, loops, and gates |
 | `implementation-council` | Pressure-test plans, code, migrations, and releases through expert debate |
 | `local-memory` | Capture, retrieve, curate, and forget durable local agent memory |
+| `loop-engineering` | Control iteration size, evidence, observation, and adjustment |
+| `quality-gates` | Return PASS or BLOCKED from required engineering evidence |
+| `solid-design` | Define proportionate responsibilities, contracts, extension seams |
+| `suite-orchestrator` | Classify tasks, route skills, preserve state, and enforce suite completion |
+| `test-driven-development` | Prove one behavior through a valid Red-Green-Refactor cycle |
 
 ### 🔧 Engineering Standards Skills (6)
 From `engineering-standards` — quality gates and engineering discipline.

@@ -1,0 +1,12 @@
+interface:
+  display_name: Engineering Orchestrator
+  short_description: Route software work through mandatory evidence
+  default_prompt: Use $engineering-orchestrator to coordinate this coding
+    task through the required design, TDD, loop, and verification gates.
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
