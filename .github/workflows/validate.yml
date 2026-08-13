@@ -12,20 +12,34 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-    
+
     - name: Validate Markdown files
       run: |
         echo "Validating documentation files..."
-        
+
         # Check if key files exist
-        files=("README.md" "SKILL.md" "LICENSE" ".gitignore")
+        files=("README.md" "LICENSE" ".gitignore" "bundle.yaml" "SOURCE-REPOS.md")
         for file in "${files[@]}"; do
           if [ ! -f "$file" ]; then
             echo "ERROR: Missing required file: $file"
             exit 1
           fi
         done
-        
+
+        # Check bootstrap SKILL.md exists
+        if [ ! -f "skills/bootstrap/SKILL.md" ]; then
+          echo "ERROR: Missing skills/bootstrap/SKILL.md"
+          exit 1
+        fi
+
+        # Check at least some SKILL.md files exist in skills/
+        skill_count=$(find skills/ -name "SKILL.md" | wc -l)
+        if [ "$skill_count" -eq 0 ]; then
+          echo "ERROR: No SKILL.md files found in skills/"
+          exit 1
+        fi
+        echo "Found $skill_count SKILL.md files"
+
         # Check if documentation templates exist
         templates=("BOOTSTRAP.md.tpl" "SESSION-LOG.md.tpl" "SPRINTS.md.tpl" "README.md.tpl" "MVP.md.tpl" "DOCSTRING_STANDARD.md.tpl" "DESIGN_SYSTEM.md.tpl" "VOICE_GUIDE.md.tpl")
         for template in "${templates[@]}"; do
@@ -84,64 +98,88 @@ jobs:
           echo "ERROR: VOICE_GUIDE.md.tpl must ban the em-dash in body copy"
           exit 1
         fi
-        
+
         # Validate README.md length
         readme_lines=$(wc -l < README.md)
         if [ $readme_lines -lt 500 ]; then
           echo "WARNING: README.md is only $readme_lines lines. Consider making it more detailed."
         fi
-        
-        # Check SKILL.md for required sections
-        if ! grep -q "Phase 0: Project Type Detection" SKILL.md; then
-          echo "ERROR: SKILL.md missing Phase 0: Project Type Detection"
+
+        # Check bootstrap SKILL.md for required sections
+        bootstrap_skill="skills/bootstrap/SKILL.md"
+        if ! grep -q "Phase 0: Project Type Detection" "$bootstrap_skill"; then
+          echo "ERROR: $bootstrap_skill missing Phase 0: Project Type Detection"
           exit 1
         fi
-        
-        if ! grep -q "Brownfield" SKILL.md; then
-          echo "ERROR: SKILL.md missing brownfield support"
+
+        if ! grep -q "Brownfield" "$bootstrap_skill"; then
+          echo "ERROR: $bootstrap_skill missing brownfield support"
           exit 1
         fi
-        
+
+        # Validate bundle.yaml
+        if ! grep -q "name:" bundle.yaml; then
+          echo "ERROR: bundle.yaml missing name field"
+          exit 1
+        fi
+        if ! grep -q "version:" bundle.yaml; then
+          echo "ERROR: bundle.yaml missing version field"
+          exit 1
+        fi
+
         echo "✅ All documentation validation checks passed!"
-    
+
     - name: Generate documentation stats
       run: |
         echo "📊 Documentation Statistics:"
         echo "==========================="
-        echo "Total files: $(find . -name "*.md" -o -name "*.tpl" | wc -l)"
-        echo "Total lines: $(find . -name "*.md" -o -name "*.tpl" -exec cat {} + | wc -l)"
-        echo "Templates: $(find references -name "*.tpl" | wc -l)"
-        echo "Documentation sections in SKILL.md: $(grep -c "^###" SKILL.md)"
+        echo "Total markdown files: $(find . -name "*.md" -not -path "./.git/*" | wc -l)"
+        echo "Total template files: $(find references -name "*.tpl" | wc -l)"
+        echo "Total SKILL.md files: $(find skills -name "SKILL.md" | wc -l)"
         echo ""
         echo "📁 File sizes:"
-        ls -lh README.md SKILL.md
+        ls -lh README.md bundle.yaml SOURCE-REPOS.md LICENSE
         echo ""
-        echo "📝 Template files:"
-        ls -lh references/
-    
+        echo "📝 Documentation templates:"
+        ls -lh references/*.tpl
+        echo ""
+        echo "🎯 Skill categories:"
+        find skills -maxdepth 1 -type d | sort
+
     - name: Create documentation summary
       run: |
         echo "# 📋 Documentation Summary" > docs-summary.md
         echo "" >> docs-summary.md
         echo "## 🎯 Overview" >> docs-summary.md
-        echo "- **Total Files**: $(find . -name "*.md" -o -name "*.tpl" | wc -l)" >> docs-summary.md
-        echo "- **Total Lines**: $(find . -name "*.md" -o -name "*.tpl" -exec cat {} + | wc -l)" >> docs-summary.md
-        echo "- **Templates**: $(find references -name "*.tpl" | wc -l)" >> docs-summary.md
+        echo "- **Total Markdown Files**: $(find . -name "*.md" -not -path "./.git/*" | wc -l)" >> docs-summary.md
+        echo "- **Total Template Files**: $(find references -name "*.tpl" | wc -l)" >> docs-summary.md
+        echo "- **Total SKILL.md Files**: $(find skills -name "SKILL.md" | wc -l)" >> docs-summary.md
+        echo "- **Skill Categories**: $(find skills -maxdepth 1 -type d | wc -l)" >> docs-summary.md
         echo "" >> docs-summary.md
         echo "## 📄 Key Files" >> docs-summary.md
         echo "- README.md: $(wc -l < README.md) lines" >> docs-summary.md
-        echo "- SKILL.md: $(wc -l < SKILL.md) lines" >> docs-summary.md
+        echo "- bundle.yaml: $(wc -l < bundle.yaml) lines" >> docs-summary.md
+        echo "- SOURCE-REPOS.md: $(wc -l < SOURCE-REPOS.md) lines" >> docs-summary.md
         echo "- LICENSE: $(wc -l < LICENSE) lines" >> docs-summary.md
         echo "" >> docs-summary.md
         echo "## 📚 Documentation Templates" >> docs-summary.md
         for template in references/*.tpl; do
           if [ -f "$template" ]; then
-            echo "- $(basename $template): $(wc -l < $template) lines" >> docs-summary.md
+            echo "- $(basename $template): $(wc -l < $template) lines"
+          fi
+        done
+        echo "" >> docs-summary.md
+        echo "## 🎯 Skill Categories" >> docs-summary.md
+        echo "" >> docs-summary.md
+        for dir in skills/*/; do
+          if [ -d "$dir" ]; then
+            count=$(find "$dir" -name "SKILL.md" | wc -l)
+            echo "- $(basename $dir): $count skills" >> docs-summary.md
           fi
         done
         echo "" >> docs-summary.md
         echo "Generated on: $(date)" >> docs-summary.md
-    
+
     - name: Upload documentation summary
       uses: actions/upload-artifact@v4
       with:
