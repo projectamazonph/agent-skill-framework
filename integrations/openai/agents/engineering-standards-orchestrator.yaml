@@ -1,0 +1,12 @@
+interface:
+  display_name: Engineering Standards Orchestrator
+  short_description: Route every code change through mandatory standards
+  default_prompt: Use $engineering-standards-orchestrator to coordinate this coding
+    task through the required design, TDD, loop, and verification gates.
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas

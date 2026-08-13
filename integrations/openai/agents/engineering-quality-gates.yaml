@@ -1,0 +1,12 @@
+interface:
+  display_name: Engineering Quality Gates
+  short_description: Verify evidence before engineering work completes
+  default_prompt: Use $engineering-quality-gates to verify this change against all
+    required completion evidence.
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

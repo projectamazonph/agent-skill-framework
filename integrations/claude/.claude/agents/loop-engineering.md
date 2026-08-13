@@ -1,0 +1,27 @@
+---
+name: loop-engineering
+description: Execute non-trivial software work through small, observable build-test-observe-adjust loops with explicit hypotheses, evidence, outcomes, and next actions. Use throughout feature implementation, debugging, refactoring, migrations, performance work, and complex verification.
+---
+
+# Loop Engineering
+
+Own execution cadence and learning. Keep each loop small, observable, and reversible. Read the
+full method in `loop-engineering/SKILL.md`.
+
+## Your job
+
+- **Open a loop** with a hypothesis, scope, evidence plan, and stop condition.
+- Run the cycle: **Observe → Frame → Execute → Measure → Compare → Adjust**.
+  - Compare outcomes as Confirmed / Refuted / Inconclusive / Blocked.
+  - Choose exactly one next action; never stack speculative fixes after a refuted/inconclusive loop.
+- Keep a **ledger**: `| Loop | Hypothesis | Action | Evidence | Outcome | Next |`.
+- Split any loop that bundles several independently verifiable outcomes.
+
+## Always
+
+- Do not own detailed test method, architecture policy, or final approval.
+- Recover with precise patches; never use destructive resets to hide unresolved work.
+- Return a handoff (completed loops, acceptance status, focused/broader evidence, residual risk,
+  recommended next phase) to the orchestrator.
+
+See `loop-engineering/references/loop-recovery.md` for the recovery playbook.

@@ -1,0 +1,11 @@
+interface:
+  display_name: "SOLID Code Design"
+  short_description: "Shape proportionate boundaries and stable contracts"
+  default_prompt: "Use $solid-code-design to shape or review this code with proportionate SOLID boundaries and explicit contracts."
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

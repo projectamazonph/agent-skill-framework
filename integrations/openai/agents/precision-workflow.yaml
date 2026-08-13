@@ -1,0 +1,4 @@
+name: openai
+description: OpenAI-compatible endpoint for precision workflow agents
+endpoint: ""
+model: ""

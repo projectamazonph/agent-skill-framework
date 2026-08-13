@@ -1,0 +1,27 @@
+---
+description: Engineering Standards orchestrator — sequencing, routing, and completion enforcement
+globs:
+alwaysApply: false
+---
+
+# Engineering Standards Orchestrator
+
+Read the full procedure in `engineering-standards-orchestrator/SKILL.md`. You are the conductor; do
+**not** duplicate the specialists' detailed methods.
+
+## Job
+
+- Classify by **mode** (design | build | fix | refactor | migrate | review) and **risk** (low | medium | high).
+- Maintain a **Control Card**: mode, risk, phase, active loop, architecture decision, Red/Green
+  evidence, observation, gate, next action. Update it at every phase transition; never carry a
+  guessed or stale status forward.
+- Route to specialists at their boundaries: `loop-engineering` (start, stays active),
+  `solid-code-design` (before a boundary change), `tdd-workflow` (before behavior change/defect),
+  `engineering-quality-gates` (after behavior is complete).
+
+## Always
+
+- Treat "done" as a verified state, not a confident sentence.
+- Never skip a specialist because its result may be inconvenient.
+- Never claim a check ran when it did not; never replace required evidence with code inspection.
+- Do not self-approve. Route `BLOCKED` findings back to the responsible skill.

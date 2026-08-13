@@ -1,0 +1,12 @@
+interface:
+  display_name: Loop Engineering
+  short_description: Execute small observable build-test-adjust loops
+  default_prompt: Use $loop-engineering to execute this task through small observable
+    loops with recorded outcomes.
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

@@ -1,0 +1,27 @@
+{
+  "name": "design-skill-pack",
+  "version": "1.0.0",
+  "description": "Portable design skill pack — 23 premium design skills for any AI agent. Includes Hallmark, high-end-visual-design, premium, editorial, sleek, neobrutalism, glassmorphism, beautiful-shadows, staggered-word-reveal, animation-on-scroll, and more. Each skill is a standalone Markdown file with tokens, anti-patterns, layout archetypes, motion guidelines, and quality gates. Agent-agnostic — works with Claude, GPT, Copilot, Cursor, Gemini, and any AI coding tool.",
+  "author": {
+    "name": "Design Skill Pack"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Design Skill Pack",
+    "shortDescription": "23 premium design skills for any AI agent — anti-AI-slop, premium, editorial, glassmorphism, neobrutalism & more",
+    "longDescription": "A portable collection of 23 structured design skills that work with any AI coding agent (Claude, GPT, Copilot, Cursor, Gemini, etc.). Each skill is a self-contained Markdown file with design tokens, anti-patterns, layout archetypes, component rules, motion guidelines, and quality gates. Includes Hallmark (anti-AI-slop), high-end-visual-design (Awwwards-tier agency), premium (Apple-inspired), editorial, sleek, minimal, modern, professional, refined, neobrutalism, glassmorphism, clean-minimal-beige-light-mode, nested-container-clean-agency, split-layout-technical, impeccable, beautiful-shadows, staggered-word-reveal, animation-on-scroll, landing-page, pricing-page, design-taste-frontend, redesign-existing-projects, and styleseed-design-review. Features a master orchestrator skill that auto-selects the right combination based on project type. No dependencies, no runtime, no special tooling required.",
+    "developerName": "Design Skill Pack",
+    "category": "Design",
+    "capabilities": [
+      "design-system",
+      "ui-ux",
+      "frontend-design",
+      "redesign",
+      "animation",
+      "typography",
+      "color-tokens",
+      "responsive-layout"
+    ],
+    "defaultPrompt": "I need to design a landing page / SaaS app / dashboard / portfolio / marketing site. Help me select the right design direction from the skill pack and apply it."
+  }
+}

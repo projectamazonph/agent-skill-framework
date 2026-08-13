@@ -1,0 +1,50 @@
+---
+description: Coordinate coding tasks through mandatory SOLID, TDD, Loop Engineering, and quality gates
+globs:
+alwaysApply: true
+---
+
+# Engineering Standards (agent-agnostic)
+
+This project is governed by an agent-agnostic engineering-standards skill pack. The canonical
+procedure lives in the five `SKILL.md` files at the repo root. Apply the standards below to **every**
+coding task: design, build, fix, refactor, migrate, review, or verify.
+
+## Coordination model
+
+When a coding task arrives, coordinate through the five sub-agents defined in `.cursor/agents/`:
+
+1. **engineering-standards-orchestrator** — classifies mode/risk, keeps the Control Card, routes work.
+2. **solid-code-design** — shapes proportionate SOLID boundaries and stable contracts.
+3. **tdd-workflow** — proves one behavior at a time via valid Red → Green → Refactor.
+4. **loop-engineering** — runs small, observable, reversible build-test-adjust loops.
+5. **engineering-quality-gates** — independently returns `PASS` or `BLOCKED`.
+
+## Canonical sequence
+
+```text
+Intake → Loop opened → SOLID shape (when a boundary is involved) → TDD Red → TDD Green
+       → SOLID-aware refactor → Loop observe & adjust (repeat) → Quality gate → PASS | BLOCKED
+```
+
+## Invariants (non-negotiable)
+
+1. No production behavior changes before valid Red evidence.
+2. Behavior is preserved during structural refactoring.
+3. No abstraction without a named change axis, client contract, or infrastructure seam.
+4. One independently verifiable outcome per loop.
+5. Record actual evidence — never infer a pass from code inspection.
+6. Unrelated changes and user scope are preserved.
+7. Work completes only after the quality gate returns `PASS`.
+
+## Routing on failure
+
+- Missing/invalid Red–Green → tdd-workflow (at Red)
+- Coupled/unjustified design → solid-code-design (at Shape)
+- Regression/build/lint/runtime → loop-engineering (at Observe/Adjust)
+- Scope drift / unauthorized → orchestrator Intake
+- Missing migration/security/rollback evidence → Baseline/Shape
+
+Read the full `SKILL.md` files for each skill's detailed procedure and its `references/` for
+diagnostics, test strategies, loop recovery, and the gate matrix. Do not self-approve; route
+`BLOCKED` findings back to the owning skill and re-run affected gates after remediation.

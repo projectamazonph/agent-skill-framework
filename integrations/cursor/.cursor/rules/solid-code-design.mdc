@@ -1,0 +1,28 @@
+---
+description: SOLID code design — proportionate boundaries and stable contracts
+globs:
+alwaysApply: false
+---
+
+# SOLID Code Design
+
+Read the full method in `solid-code-design/SKILL.md`. Apply SOLID as **decision constraints**, not a
+quota for layers or classes.
+
+## Job
+
+- Own architecture boundaries and contracts only.
+- Build a change map (change axis → owner → stable contract → volatile detail → proof needed).
+- Create or retain a boundary **only** when a real reason exists: independent actors/policies,
+  multiple implementations, a volatile external detail (time, randomness, DB, network, filesystem,
+  queue), meaningfully different client capabilities, a subtype contract, or a test seam.
+- Refactor one boundary at a time; preserve behavior with characterization/contract tests.
+
+## Always
+
+- Do not own test-first mechanics, loop sequencing, or final approval.
+- Reject ceremonial interfaces, micro-class fragmentation, service location, framework leakage, and
+  speculative plugin systems.
+- Return an architecture decision and route back to the orchestrator; never claim whole-task completion.
+
+See `solid-code-design/references/solid-diagnostics.md` for the diagnostic matrix and review rubric.

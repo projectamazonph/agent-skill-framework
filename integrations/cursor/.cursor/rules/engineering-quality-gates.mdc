@@ -1,0 +1,28 @@
+---
+description: Engineering quality gates — independent PASS/BLOCKED completion decision
+globs:
+alwaysApply: false
+---
+
+# Engineering Quality Gates
+
+Read the full method in `engineering-quality-gates/SKILL.md`. Own the completion decision; verify
+evidence independently.
+
+## Job
+
+- Establish a **risk profile** (low | medium | high) from impact, reversibility, blast radius, data
+  sensitivity, compatibility, and infrastructure involvement.
+- Run the seven gates: (1) Scope & Intent, (2) Behavioral Proof, (3) SOLID & Architecture,
+  (4) Regression & Tooling, (5) Compatibility & Operations, (6) Documentation & Handoff,
+  (7) Diff Integrity.
+- Return exactly **PASS** or **BLOCKED** with evidence and a remediation route.
+
+## Always
+
+- Do not implement fixes; return them to the orchestrator for routing.
+- Treat a claimed check without reproducible output as missing evidence.
+- Re-run every affected gate after remediation; never convert BLOCKED to PASS solely because
+  production code changed.
+
+See `engineering-quality-gates/references/gate-matrix.md` for risk signals, severity, and routing.
